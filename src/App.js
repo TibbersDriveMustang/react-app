@@ -38,16 +38,24 @@ class App extends React.Component{
 		});
 	}
 
+	updateVal2(){
+		this.props.val2 += 1
+	}
+
 	componentWillMount(){
 		console.log('Component Will Mount');
+		this.setState({m: 2});
 	}
 
 	componentDidMount(){
 		console.log('Component Did Mount');
+		//console.log(ReactDOM.findDOMNode(this));
+		this.inc = setInterval(this.updateVal, 500);
 	}
 
 	componentWillUnmount(){
 		console.log('Component Will Unmount');
+		clearInterval(this.inc);
 	}
 
 	render(){
@@ -115,7 +123,11 @@ class App extends React.Component{
 				/>{this.state.c}							
 			
 			<hr />	
-				<button onClick={this.updateVal}>{this.state.val}</button>
+				<button onClick={this.updateVal}>{this.state.val * this.state.m }</button>
+
+			<hr />
+				<h1>Bugs with updateVal2 function</h1>
+				<button onClick={this.updateVal2.bind(this)}>{this.props.val2}</button>
 
 		</div>
 		)
@@ -128,7 +140,9 @@ App.propTypes = {
 }
 
 App.defaultProps = {
-	txt: "This is the default txt"
+	txt: "This is the default txt",
+	val2: 22,
+	cat: 0
 }
 
 //Create Widget function
